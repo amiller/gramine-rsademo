@@ -17,4 +17,5 @@ RUN mkdir -p enclave_data
 
 RUN SGX=1 make
 
+ENTRYPOINT []
 CMD [ "gramine-sgx-sigstruct-view", "python.sig" ]

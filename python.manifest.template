@@ -6,12 +6,10 @@ libos.entrypoint = "{{ entrypoint }}"
 loader.log_level = "{{ log_level }}"
 
 loader.env.LD_LIBRARY_PATH = "/lib:/lib:{{ arch_libdir }}:/usr{{ arch_libdir }}"
-loader.env.INSIDE_SGX = "1"
-loader.env.TLS = { passthrough = true }
 
 loader.env.RA_TYPE = "dcap"
 
-loader.argv = ["./python", "-m", "enclave.main"]
+loader.argv = ["./python", "rsademo.py"]
 
 sys.enable_sigterm_injection = true
 
@@ -19,24 +17,23 @@ fs.mounts = [
   { path = "/lib", uri = "file:{{ gramine.runtimedir() }}" },
   { path = "{{ arch_libdir }}", uri = "file:{{ arch_libdir }}" },
   { path = "/usr/{{ arch_libdir }}", uri = "file:/usr/{{ arch_libdir }}" },
-  { path = "{{ entrypoint }}", uri = "file:{{ entrypoint }}" },
-
+  #
 # This is the system python path.
 # We could also replace with a venv
 {% for path in python.get_sys_path(entrypoint) %}
   { path = "{{ path }}", uri = "file:{{ path }}" },
 {% endfor %}
-
-
+  { path = "{{ entrypoint }}", uri = "file:{{ entrypoint }}" },
+  
 
   { type = "tmpfs", path = "/tmp" },
-  { type = "encrypted", path = "/data/", uri = "enclave_data/", key_name = "_sgx_mrenclave" },
+  { type = "encrypted", path = "/data/", uri = "file:enclave_data/", key_name = "_sgx_mrenclave" },
 ]
 
 sys.stack.size = "2M"
 sys.enable_extra_runtime_domain_names_conf = true
 
-sgx.debug = "false"
+sgx.debug = false
 
 sgx.edmm_enable = {{ 'true' if env.get('EDMM', '0') == '1' else 'false' }}
 sgx.nonpie_binary = true
@@ -50,13 +47,15 @@ sgx.trusted_files = [
   "file:{{ entrypoint }}",
   "file:{{ gramine.runtimedir() }}/",
   "file:{{ arch_libdir }}/",
-  "file:/usr{{ arch_libdir }}/",
-
+  "file:/usr/{{ arch_libdir }}/",
+{% for path in python.get_sys_path(entrypoint) %}
+  "file:{{ path }}{{ '/' if path.is_dir() else '' }}",
+{% endfor %}  
+#
   "file:rsademo.py",
 ]
 
 # Untrusted files for communication with the host can go here
-
-sgx.allowed_files = [
+#sgx.allowed_files = [
 #  "file:/gramine-dummy-attester/dummyattester/untrustedhost",
-]
+#]

@@ -1,7 +1,7 @@
 FROM gramineproject/gramine:v1.5
 
 RUN apt-get update
-RUN apt-get install make
+RUN apt-get install -y make gcc
 
 ENV SGX 1
 
@@ -13,9 +13,8 @@ ADD rsademo.py ./
 ADD python.manifest.template ./
 ADD Makefile ./
 
-RUN mkdir -p input_data output_data enclave_data
+RUN mkdir -p enclave_data
 
 RUN SGX=1 make
 
-CMD "bash"
-# CMD [ "gramine-sgx-sigstruct-view", "python.sig" ]
+CMD [ "gramine-sgx-sigstruct-view", "python.sig" ]

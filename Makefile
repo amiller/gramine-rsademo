@@ -10,7 +10,6 @@ endif
 all: python.manifest python.manifest.sgx python.sig
 
 python.manifest: python.manifest.template
-	echo "manifest"
 	gramine-manifest \
 		-Dlog_level=$(GRAMINE_LOG_LEVEL) \
 		-Darch_libdir=$(ARCH_LIBDIR) \

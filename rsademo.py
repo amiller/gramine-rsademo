@@ -2,7 +2,7 @@ import sys
 import hashlib
 import random
 
-def is_prime(n,k=5):
+def is_prime(n,k=40):
  if n<2:return False
  for p in[2,3,5,7,11,13,17,19,23,29]:
   if n<p*p:return n>1
@@ -29,11 +29,14 @@ if __name__ == '__main__':
  q = sample_prime()
  N = p*q
 
- print('RSA modulus: ', hex(N))
+ print('RSA modulus N: ', hex(N))
 
  # Compute the hash
  h = hashlib.sha256(N.to_bytes(256, 'big')).digest()
  print('sha2(N):', h.hex())
+
+
+ ### Remote attestation
  
  # Set the user data
  with open("/dev/attestation/user_report_data", "wb") as f:
@@ -46,4 +49,3 @@ if __name__ == '__main__':
  # Write the quote
  print("quote")
  print(quote.hex())
-

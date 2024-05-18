@@ -13,7 +13,7 @@ ADD rsademo.py ./
 ADD python.manifest.template ./
 ADD Makefile ./
 
-RUN mkdir -p enclave_data
+RUN mkdir -p untrustedhost
 
 RUN SGX=1 make
 

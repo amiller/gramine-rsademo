@@ -11,7 +11,7 @@ services:
     environment:
       SGX: 1
     volumes:
-      - untrustedhost:/untrustedhost
+      - untrustedhost:/root/untrustedhost
       - /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket
     devices:
       - /dev/sgx_enclave

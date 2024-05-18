@@ -28,6 +28,8 @@ fs.mounts = [
 
   { type = "tmpfs", path = "/tmp" },
   { type = "encrypted", path = "/data/", uri = "file:enclave_data/", key_name = "_sgx_mrenclave" },
+
+#  { path = "/untrustedhost", uri = "file:untrustedhost/" },
 ]
 
 sys.stack.size = "2M"
@@ -56,6 +58,6 @@ sgx.trusted_files = [
 ]
 
 # Untrusted files for communication with the host can go here
-#sgx.allowed_files = [
-#  "file:/gramine-dummy-attester/dummyattester/untrustedhost",
+# sgx.allowed_files = [
+#  "file:untrustedhost",
 #]

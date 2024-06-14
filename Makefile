@@ -1,4 +1,4 @@
-ARCH_LIBDIR ?= /lib/$(shell $(CC) -dumpmachine)
+ARCH_LIBDIR ?= /lib/$(dpkg-architecture -q DEB_HOST_GNU_TYPE)
 
 ifeq ($(DEBUG),1)
 GRAMINE_LOG_LEVEL = debug

@@ -1,7 +1,7 @@
 FROM gramineproject/gramine:v1.5
 
 RUN apt-get update
-RUN apt-get install -y make gcc
+RUN apt-get install -y make
 
 ENV SGX 1
 

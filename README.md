@@ -30,7 +30,7 @@ docker build -t gramine .
 docker run --rm gramine
 ```
 
-The reference MRENCLAVE for this release is `40f527e829a28dd97382ed3433e7a9e7877cc80817bd1917dcc24b863abcf5a9`. You should check to see if you can reproduce it.
+The reference MRENCLAVE for this release is `db718ecdcec7b7db2cd7206b7599b2472c02376195b70629fa72690e377ba69c`. You should check to see if you can reproduce it.
 
 You can also just run `make` in this directory if you have gramine installed, and this is a convenient way to develop, but you're unlikely to get an identical match unless you have exactly the same python3.8 and packages as the base image.
 

@@ -1,4 +1,4 @@
-ARCH_LIBDIR ?= /lib/$(dpkg-architecture -q DEB_HOST_GNU_TYPE)
+ARCH_LIBDIR ?= /lib/x86_64-linux-gnu
 
 ifeq ($(DEBUG),1)
 GRAMINE_LOG_LEVEL = debug

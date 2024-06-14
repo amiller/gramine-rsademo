@@ -9,6 +9,13 @@ RUN gramine-sgx-gen-private-key
 
 WORKDIR /root/
 
+RUN apt-get install -y make
+
+RUN apt-get install -y python3-pip
+RUN pip install gunicorn flask
+
+ADD app.py ./
+ADD unicorn.py ./
 ADD rsademo.py ./
 ADD python.manifest.template ./
 ADD Makefile ./

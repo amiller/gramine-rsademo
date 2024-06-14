@@ -16,6 +16,7 @@ services:
     devices:
       - /dev/sgx_enclave
       - /dev/sgx_provision
+    network_mode: host
 
 volumes:
   untrustedhost:
